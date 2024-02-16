@@ -1,5 +1,5 @@
 # Homework 2
-A repository meant to host Homework 2 of STOR 390: Moral Machine Learning.
+A repository hosting Homework 2 of STOR 390: Moral Machine Learning.
 
 ## Software
 R was used for this assignment.
