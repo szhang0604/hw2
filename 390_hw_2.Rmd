@@ -1,0 +1,64 @@
+---
+title: "390 HW 2"
+output: html_document
+date: "2024-02-14"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+```
+
+## R Markdown
+
+**Part 1**
+
+This model yields a test accuracy of 78%.
+
+```{r cars}
+set.seed(123) 
+library(class)
+
+df <- data(iris) 
+
+# max/min norm
+normal <-function(x) { 
+  (x -min(x))/(max(x)-min(x))   
+}
+
+# normalizing data
+iris_norm <- as.data.frame(lapply(iris[,c(1,2,3,4)], normal))
+
+# train/test split
+subset <- c(1:45, 58, 60:70, 82, 94, 110:150)
+iris_train <- iris_norm[subset,] 
+iris_test <- iris_norm[-subset,] 
+
+iris_target_category <- iris[subset,5]
+iris_test_category <- iris[-subset,5]
+
+# kNN model
+pr <- knn(iris_train, iris_test, cl = iris_target_category, k=5)
+tab <- table(pr, iris_test_category) 
+tab
+
+# accuracy
+accuracy <- function(x){
+  sum(diag(x))/(sum(rowSums(x)))*100
+}
+
+accuracy(tab) #78% 
+```
+
+**Part 2**
+
+From the iris_target_category and iris_test_category summaries, the training data is not representative of the test set. In the training set, 45% of observations are of the setosa species, 14% are versicolor, and 41% are virginica. In the test set, 5% are setosa, 36% are versicolor, and 9% are virginica. This problem arises from the lack of randomization in the train/test split, which plays a major role in the higher classification error rate. 
+
+```{r pressure, echo=TRUE}
+summary(iris_target_category)
+summary(iris_test_category)
+```
+
+**Part 3**
+
+Github repo link: https://github.com/szhang0604/hw2 
