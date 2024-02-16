@@ -1,2 +1,2 @@
 # hw2
-a repo meant to host hw 2 of STOR 390 moral machine learning
+A repository meant to host Homework 2 of STOR 390: Moral Machine Learning.
